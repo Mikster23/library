@@ -20,6 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		// hi Git Test-----
+		
 		$this->load->view('welcome_message');
 	}
 }
