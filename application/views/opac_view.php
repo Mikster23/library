@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ACQUISITION</title>
+    <title>OPAC</title>
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css');?>" />
     <link rel="stylesheet" href="<?php echo base_url('assets/datatables/css/dataTables.bootstrap.css');?>" />
 
@@ -15,17 +15,17 @@
 
 
   <div class="container">
-    <h1>ACQUISITION</h1>
+    <h1>OPAC</h1>
 </center>
     <h3>Book List</h3>
     <br />
-    <button class="btn btn-success" onclick="add_book()"><i class="glyphicon glyphicon-plus"></i> Add Book</button>
+
     <br />
     <br />
     <table id="table_id" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
-					<th>Book ID</th>
+
 					<th>Book ISBN</th>
 					<th>Book Title</th>
           <th>Book Other Title</th>
@@ -38,14 +38,13 @@
 					<th>Description</th>
           <th>Abstract</th>
 
-          <th style="width:125px;">Action
-          </p></th>
+
         </tr>
       </thead>
       <tbody>
 				<?php foreach($books as $book){?>
 				     <tr>
-				         <td><?php echo $book->id;?></td>
+
 				         <td><?php echo $book->isbn;?></td>
 								 <td><?php echo $book->title;?></td>
                 <td><?php echo $book->other_title;?></td>
@@ -57,12 +56,7 @@
 								<td><?php echo $book->category;?></td>
               	<td><?php echo $book->description;?></td>
               	<td><?php echo $book->abstract;?></td>
-								<td>
-									<button class="btn btn-warning" onclick="edit_book(<?php echo $book->id;?>)"><i class="glyphicon glyphicon-pencil"></i></button>
-									<button class="btn btn-danger" onclick="delete_book(<?php echo $book->id;?>)"><i class="glyphicon glyphicon-remove"></i></button>
 
-
-								</td>
 				      </tr>
 				     <?php }?>
 
@@ -72,7 +66,7 @@
 
       <tfoot>
         <tr>
-          <th>Book ID</th>
+
           <th>Book ISBN</th>
           <th>Book Title</th>
           <th>Book Other Title</th>
@@ -84,7 +78,7 @@
           <th>Book Category</th>
           <th>Description</th>
           <th>Abstract</th>
-          <th>Action</th>
+
         </tr>
       </tfoot>
     </table>
@@ -105,109 +99,11 @@
     var table;
     //var base_url = <?php// echo base_url(); ?>;
 
-    function add_book()
-    {
-      save_method = 'add';
-      $('#form')[0].reset(); // reset form on modals
-      $('#modal_form').modal('show'); // show bootstrap modal
-
-    }
-
-    function edit_book(id)
-    {
-      save_method = 'update';
-
-      $('#form')[0].reset(); // reset form on modals
-
-      //Ajax Load data from ajax
-      $.ajax({
-        url : "<?php echo base_url('index.php/book/ajax_edit/')?>/" + id,
-      //  url: base_url + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-
-            $('[name="id"]').val(data.id);
-            $('[name="isbn"]').val(data.isbn);
-            $('[name="title"]').val(data.title);
-            $('[name="othertitle"]').val(data.othertitle);
-            $('[name="author"]').val(data.author);
-            $('[name="otherauthor"]').val(data.otherauthor);
-            $('[name="publisher"]').val(data.publisher);
-            $('[name="edition"]').val(data.edition);
-            $('[name="publicationyear"]').val(data.publicationyear);
-            $('[name="category"]').val(data.category);
-            $('[name="description"]').val(data.description);
-            $('[name="abstract"]').val(data.abstract);
-
-
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Book'); // Set title to Bootstrap modal title
-
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-    }
 
 
 
-    function save()
-    {
-      var url;
-      if(save_method == 'add')
-      {
-          url = "<?php echo base_url('index.php/book/book_add')?>";
-      }
-      else
-      {
-        url = "<?php echo base_url('index.php/book/book_update')?>";
-      }
 
-       // ajax adding data to database
-          $.ajax({
-            url : url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function(data)
-            {
-               //if success close modal and reload ajax table
-               $('#modal_form').modal('hide');
-              location.reload();// for reload a page
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-            }
-        });
-    }
 
-    function delete_book(id)
-    {
-      if(confirm('Are you sure delete this data?'))
-      {
-        // ajax delete data from database
-          $.ajax({
-            url : "<?php echo base_url('index.php/book/book_delete')?>/"+id,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
-            {
-
-               location.reload();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
-            }
-        });
-
-      }
-    }
 
   </script>
 
@@ -315,10 +211,7 @@
           </div>
         </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          </div>
+
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
