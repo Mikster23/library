@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+<<<<<<< HEAD
 //This is the Book Model for CodeIgniter CRUD using Ajax Application.
 class Book_model extends CI_Model
 {
@@ -51,4 +52,15 @@ return $query->result();
 	}
 
 
+=======
+class Book_model extends MY_Model
+{
+    public $_table = 'books';
+    public $belongs_to = array(
+        'categories' => array('model' => 'category_model'),
+    );
+    public $has_many = array(
+        'reservations' => array('model' => 'reservation_model'),
+    );
+>>>>>>> 6a91f0b6503d61a26823c84856a05fdcf0ae19f5
 }
